@@ -1,8 +1,0 @@
-nidaqmx
-pyqt5
-pyqtgraph
-pydantic
-numpy
-paho-mqtt
-scipy
-nptdms
