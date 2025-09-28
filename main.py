@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 from numpy import sin
 from NI_DAQ.GenericMqtteLogger import initialize_logging
 from NI_DAQ.DAQ import DAQ
@@ -14,7 +16,7 @@ unreserve_cmd = ["nidaqmxconfig", "--unreserve" "daq"]
 
 stop_event = Event()
 
-def handle_signal(*args)
+def handle_signal(*args):
     logging.debug("Exiting")
     stop_event.set()
     res = subprocess.run(unreserve_cmd)
@@ -37,9 +39,9 @@ if __name__ == "__main__":
 
     res = subprocess.run(reserve_cmd)
 
-    if not res
+    if not res:
         logging.debug(f"[Main] reserved DAQ")
-    else 
+    else :
         logging.error(f"[Main] could not reserve daq")
         exit(1)
 
