@@ -334,6 +334,8 @@ class DAQ(GenericMQTT):
                 SensorsConfig.display_data_topic, sensor_data.model_dump_json()
             )
 
+            self.mqtt_client.publish(f"{ExperimentMqttConfig.base_topic}{ExperimentMqttConfig.elapsed_topic}", f"{timer} ms")
+
         except Exception as e:
             logging.error(f"[DAQ] Exception: {e}")
 
