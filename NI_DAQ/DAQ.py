@@ -268,8 +268,7 @@ class DAQ(GenericMQTT):
         logging.debug(
             f"[DAQ][MQTT]  Rename command received, data received: {msg.payload.decode()}"
         )
-        data = json.loads(msg.payload.decode())
-        file_name = data.get("file_name", None)
+        file_name = msg.payload.decode()
         if file_name is not None:
             self._stop_recording()
             self._new_tdms(file_name)
