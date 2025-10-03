@@ -10,9 +10,10 @@ import sys, signal
 import subprocess
 from multiprocessing import Event
 
-daq_ip = "169.254.1.1"
-reserve_cmd = ["nidaqmxconfig", "--find-net-device", daq_ip, "--reserve", "--name", "daq"]
-unreserve_cmd = ["nidaqmxconfig", "--unreserve" "daq"]
+
+add_cmd = ["nidaqmxconfig", "--add-net-dev", "cDAQ9185-2304EC6.local"]
+reserve_cmd = ["nidaqmxconfig", "--reserve", "cDAQ9185-2304EC6"] 
+unreserve_cmd = ["nidaqmxconfig", "--unreserve" "cDAQ9185-2304EC6"]
 
 stop_event = Event()
 
@@ -37,9 +38,18 @@ if __name__ == "__main__":
     
     logging.debug(f"[Main] Main initialized. ")
 
+    res = subprocess.run(add_cmd)
+
+    if not res.returncode:
+        logging.debug(f"[MAIN] added daq")
+
+    else: 
+        logging.error(f"Could not add DAQ")
+        exit(1)
+
     res = subprocess.run(reserve_cmd)
 
-    if not res:
+    if not res.returncode:
         logging.debug(f"[Main] reserved DAQ")
     else :
         logging.error(f"[Main] could not reserve daq")
